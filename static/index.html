@@ -1,8 +1,8 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -415,9 +415,7 @@ async function startRecording() {
 
     console.log("Start Recording clicked");
 
-
     try {
-
 
         if (
             !navigator.mediaDevices ||
@@ -466,7 +464,6 @@ async function startRecording() {
         mediaRecorder.onstop =
             function() {
 
-
                 console.log(
                     "Recording stopped"
                 );
@@ -498,17 +495,38 @@ async function startRecording() {
         mediaRecorder.start();
 
 
+        // ==========================================
+        // RESET TIMER
+        // ==========================================
+
         seconds = 0;
 
         updateTimer();
 
 
+        // Make sure no previous timer is running
+
+        clearInterval(timerInterval);
+
+
+        // Start timer
+
         timerInterval =
             setInterval(
-                updateTimer,
+                function() {
+
+                    seconds++;
+
+                    updateTimer();
+
+                },
                 1000
             );
 
+
+        // ==========================================
+        // BUTTONS
+        // ==========================================
 
         document.getElementById(
             "startBtn"
@@ -530,11 +548,9 @@ async function startRecording() {
             "error"
         ).innerText = "";
 
-
     }
 
     catch (error) {
-
 
         console.error(error);
 
@@ -557,11 +573,23 @@ async function startRecording() {
 
 function stopRecording() {
 
-
     console.log(
         "Stop Recording clicked"
     );
 
+
+    // Stop timer immediately
+
+    if (timerInterval !== null) {
+
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+
+    }
+
+
+    // Stop recorder
 
     if (
         mediaRecorder &&
@@ -573,10 +601,15 @@ function stopRecording() {
     }
 
 
-    clearInterval(
-        timerInterval
-    );
+    // Stop microphone tracks
 
+    // This is also handled inside onstop,
+    // so we don't stop them twice here.
+
+
+    // ==========================================
+    // BUTTONS
+    // ==========================================
 
     document.getElementById(
         "startBtn"
@@ -602,10 +635,6 @@ function stopRecording() {
 // ==================================================
 
 function updateTimer() {
-
-
-    seconds++;
-
 
     const minutes =
         Math.floor(
@@ -649,7 +678,6 @@ async function sendAudioToServer(
     audioBlob
 ) {
 
-
     const loading =
         document.getElementById(
             "loading"
@@ -677,7 +705,6 @@ async function sendAudioToServer(
 
 
     try {
-
 
         const formData =
             new FormData();
@@ -736,13 +763,13 @@ async function sendAudioToServer(
 
 
         // Refresh previous meetings
+
         loadPreviousMeetings();
 
 
     }
 
     catch (err) {
-
 
         console.error(err);
 
@@ -770,7 +797,6 @@ async function sendAudioToServer(
 function displayResults(
     analysis
 ) {
-
 
     document.getElementById(
         "recordStatus"
@@ -831,7 +857,6 @@ function displayResults(
     ).forEach(
         item => {
 
-
             const div =
                 document.createElement(
                     "div"
@@ -845,7 +870,6 @@ function displayResults(
             if (
                 typeof item === "object"
             ) {
-
 
                 div.innerHTML = `
 
@@ -868,7 +892,6 @@ function displayResults(
 
             else {
 
-
                 div.innerText =
                     "📌 " + item;
 
@@ -878,7 +901,6 @@ function displayResults(
             actions.appendChild(
                 div
             );
-
 
         }
     );
@@ -909,7 +931,6 @@ function fillList(
     items
 ) {
 
-
     const list =
         document.getElementById(
             elementId
@@ -923,7 +944,6 @@ function fillList(
         !items ||
         !items.length
     ) {
-
 
         const li =
             document.createElement(
@@ -948,7 +968,6 @@ function fillList(
     items.forEach(
         item => {
 
-
             const li =
                 document.createElement(
                     "li"
@@ -963,7 +982,6 @@ function fillList(
                 li
             );
 
-
         }
     );
 
@@ -977,7 +995,6 @@ function fillList(
 
 async function loadPreviousMeetings() {
 
-
     const container =
         document.getElementById(
             "previousMeetings"
@@ -985,7 +1002,6 @@ async function loadPreviousMeetings() {
 
 
     try {
-
 
         const response =
             await fetch(
@@ -1031,7 +1047,6 @@ async function loadPreviousMeetings() {
             data.meetings.length === 0
         ) {
 
-
             container.innerHTML =
                 `
                 <div class="empty">
@@ -1055,7 +1070,6 @@ async function loadPreviousMeetings() {
 
         meetings.forEach(
             (meeting, index) => {
-
 
                 const card =
                     document.createElement(
@@ -1315,12 +1329,10 @@ async function loadPreviousMeetings() {
                     meeting.action_items.forEach(
                         item => {
 
-
                             if (
                                 typeof item ===
                                 "object"
                             ) {
-
 
                                 html += `
 
@@ -1358,7 +1370,6 @@ async function loadPreviousMeetings() {
 
                             else {
 
-
                                 html += `
 
                                     <div class="action">
@@ -1383,15 +1394,12 @@ async function loadPreviousMeetings() {
                     card
                 );
 
-
             }
         );
-
 
     }
 
     catch (error) {
-
 
         console.error(
             "Previous meetings error:",
@@ -1421,12 +1429,21 @@ async function loadPreviousMeetings() {
 
 
 // ==================================================
-// LOAD PREVIOUS MEETINGS WHEN PAGE OPENS
+// PAGE LOAD
 // ==================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
+
+        // Always start timer at 00:00
+
+        seconds = 0;
+
+        updateTimer();
+
+
+        // Load previous meetings
 
         loadPreviousMeetings();
 
@@ -1439,3 +1456,4 @@ document.addEventListener(
 </body>
 
 </html>
+```
