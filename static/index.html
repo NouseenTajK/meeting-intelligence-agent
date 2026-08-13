@@ -85,6 +85,12 @@
             font-weight: bold;
             cursor: pointer;
             margin: 8px;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         #startBtn {
@@ -98,8 +104,11 @@
             display: none;
         }
 
-        button:hover {
-            opacity: 0.9;
+        #refreshBtn {
+            background: #2563eb;
+            color: white;
+            padding: 11px 18px;
+            font-size: 14px;
         }
 
         #loading {
@@ -152,7 +161,29 @@
         }
 
         /* ==========================================
-           PREVIOUS MEETING STYLES
+           PREVIOUS MEETINGS HEADER
+           ========================================== */
+
+        .meetings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .meetings-header h2 {
+            margin: 0;
+        }
+
+        .meetings-subtitle {
+            color: #6b7280;
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================
+           PREVIOUS MEETING CARD
            ========================================== */
 
         .previous-meeting {
@@ -161,54 +192,112 @@
             border-left: 5px solid #1e3a8a;
             padding: 22px;
             margin: 18px 0;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: 0.2s ease;
+        }
+
+        .previous-meeting:hover {
+            box-shadow: 0 8px 22px rgba(0,0,0,0.09);
+            transform: translateY(-1px);
+        }
+
+        .previous-meeting.latest {
+            border-left-color: #16a34a;
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #f0fdf4
+            );
+        }
+
+        .latest-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
         .meeting-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 15px;
         }
 
-        .previous-meeting h3 {
-            margin: 0 0 8px 0;
+        .meeting-title {
+            margin: 0;
             color: #1e3a8a;
             font-size: 21px;
+        }
+
+        .latest .meeting-title {
+            color: #166534;
         }
 
         .meeting-date {
             color: #6b7280;
             font-size: 14px;
-            margin-bottom: 15px;
+            margin-top: 7px;
         }
 
         .meeting-contact {
             background: #eff6ff;
             padding: 10px 14px;
             border-radius: 8px;
-            margin: 10px 0 15px 0;
+            margin: 15px 0;
         }
+
+        /* ==========================================
+           MEETING SUMMARY
+           ========================================== */
 
         .meeting-summary {
             background: #f8fafc;
             padding: 18px;
             border-radius: 10px;
             margin: 15px 0;
-            line-height: 1.6;
+            line-height: 1.7;
+            border: 1px solid #eef2f7;
         }
 
-        .meeting-summary p {
-            margin: 8px 0 0 0;
-        }
-
-        .section-title {
+        .summary-heading {
             font-weight: bold;
-            font-size: 16px;
             color: #1e3a8a;
-            margin-top: 18px;
             margin-bottom: 8px;
         }
+
+        .meeting-summary-text {
+            margin: 0;
+        }
+
+        /* ==========================================
+           QUICK STATS
+           ========================================== */
+
+        .meeting-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .stat {
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 999px;
+            padding: 6px 11px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* ==========================================
+           DETAILS
+           ========================================== */
 
         .meeting-details {
             margin-top: 15px;
@@ -224,9 +313,42 @@
             padding: 12px 5px;
         }
 
+        .meeting-details summary:hover {
+            color: #1d4ed8;
+        }
+
         .meeting-details-content {
             padding: 5px 5px 15px 5px;
         }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #1e3a8a;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        .section-title:first-child {
+            margin-top: 5px;
+        }
+
+        /* ==========================================
+           ACTION ITEMS
+           ========================================== */
+
+        .action {
+            background: white;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        /* ==========================================
+           TRANSCRIPT
+           ========================================== */
 
         .meeting-transcript {
             background: white;
@@ -237,7 +359,12 @@
             white-space: pre-wrap;
             max-height: 400px;
             overflow-y: auto;
+            border: 1px solid #e5e7eb;
         }
+
+        /* ==========================================
+           LOADING / EMPTY
+           ========================================== */
 
         .loading-meetings {
             text-align: center;
@@ -248,8 +375,10 @@
 
         .empty {
             color: #6b7280;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
+            background: #f8fafc;
+            border-radius: 10px;
         }
 
         footer {
@@ -257,6 +386,10 @@
             padding: 30px;
             color: #6b7280;
         }
+
+        /* ==========================================
+           MOBILE
+           ========================================== */
 
         @media (max-width: 600px) {
 
@@ -275,6 +408,19 @@
 
             .previous-meeting {
                 padding: 16px;
+            }
+
+            .meetings-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            #refreshBtn {
+                margin-left: 0;
+            }
+
+            .meeting-header {
+                flex-direction: column;
             }
 
         }
@@ -371,11 +517,27 @@
 
     <div class="card">
 
-        <h2>📚 Previous Meetings</h2>
+        <div class="meetings-header">
 
-        <p>
-            Review information from your earlier meetings.
-        </p>
+            <div>
+
+                <h2>📚 Previous Meetings</h2>
+
+                <p class="meetings-subtitle">
+                    Review information from your earlier meetings.
+                </p>
+
+            </div>
+
+
+            <button
+                id="refreshBtn"
+                onclick="loadPreviousMeetings()"
+            >
+                🔄 Refresh
+            </button>
+
+        </div>
 
 
         <div id="previousMeetings">
@@ -621,7 +783,9 @@ async function startRecording() {
 
         // Reset timer
 
-        clearInterval(timerInterval);
+        clearInterval(
+            timerInterval
+        );
 
         timerInterval = null;
 
@@ -985,6 +1149,7 @@ function displayResults(
                     <div>
                         📌 ${escapeHtml(
                             item.task ||
+                            item.description ||
                             "No task"
                         )}
                     </div>
@@ -1090,6 +1255,7 @@ function fillList(
                     ? (
                         item.text ||
                         item.description ||
+                        item.task ||
                         JSON.stringify(item)
                     )
                     : item;
@@ -1110,7 +1276,9 @@ function fillList(
 // CHECK USEFUL MEETING
 // ==================================================
 
-function isUsefulMeeting(meeting) {
+function isUsefulMeeting(
+    meeting
+) {
 
     if (
         !meeting ||
@@ -1148,6 +1316,7 @@ function isUsefulMeeting(meeting) {
                             );
 
                     }
+
 
                     return (
                         item !== null &&
@@ -1242,6 +1411,27 @@ function formatMeetingDate(
         );
 
     }
+
+}
+
+
+
+// ==================================================
+// GET MEETING NUMBER
+// ==================================================
+
+function getMeetingNumber(
+    meeting,
+    index
+) {
+
+    return (
+        meeting.meeting_number ||
+        meeting.meeting_id ||
+        meeting.id ||
+        meeting._id ||
+        (index + 1)
+    );
 
 }
 
@@ -1534,7 +1724,8 @@ function createMeetingActionItems(
 
 function createPreviousMeetingCard(
     meeting,
-    index
+    index,
+    isLatest
 ) {
 
     const card =
@@ -1544,15 +1735,19 @@ function createPreviousMeetingCard(
 
 
     card.className =
-        "previous-meeting";
+        "previous-meeting"
+        + (
+            isLatest
+                ? " latest"
+                : ""
+        );
 
 
     const meetingNumber =
-        meeting.meeting_number ||
-        meeting.meeting_id ||
-        meeting.id ||
-        meeting._id ||
-        (index + 1);
+        getMeetingNumber(
+            meeting,
+            index
+        );
 
 
     const date =
@@ -1561,13 +1756,37 @@ function createPreviousMeetingCard(
         );
 
 
-    let html = `
+    let html = "";
+
+
+    // ==========================================
+    // LATEST BADGE
+    // ==========================================
+
+    if (isLatest) {
+
+        html += `
+
+            <div class="latest-badge">
+                ⭐ Latest Meeting
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // HEADER
+    // ==========================================
+
+    html += `
 
         <div class="meeting-header">
 
             <div>
 
-                <h3>
+                <h3 class="meeting-title">
 
                     📅 Meeting
                     ${escapeHtml(
@@ -1633,19 +1852,152 @@ function createPreviousMeetingCard(
 
             <div class="meeting-summary">
 
-                <div class="section-title">
+                <div class="summary-heading">
 
                     📌 Summary
 
                 </div>
 
-                <p>
+                <p class="meeting-summary-text">
 
                     ${escapeHtml(
                         meeting.summary
                     )}
 
                 </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // QUICK STATS
+    // ==========================================
+
+    const discussionCount =
+        Array.isArray(
+            meeting.discussion_points
+        )
+            ? meeting.discussion_points.length
+            : 0;
+
+
+    const decisionCount =
+        Array.isArray(
+            meeting.decisions
+        )
+            ? meeting.decisions.length
+            : 0;
+
+
+    const promiseCount =
+        Array.isArray(
+            meeting.promises
+        )
+            ? meeting.promises.length
+            : 0;
+
+
+    const followupCount =
+        Array.isArray(
+            meeting.follow_ups
+        )
+            ? meeting.follow_ups.length
+            : 0;
+
+
+    const actionCount =
+        Array.isArray(
+            meeting.action_items
+        )
+            ? meeting.action_items.length
+            : 0;
+
+
+    if (
+        discussionCount ||
+        decisionCount ||
+        promiseCount ||
+        followupCount ||
+        actionCount
+    ) {
+
+        html += `
+
+            <div class="meeting-stats">
+
+        `;
+
+
+        if (discussionCount) {
+
+            html += `
+
+                <span class="stat">
+                    💬 ${discussionCount} Discussion
+                </span>
+
+            `;
+
+        }
+
+
+        if (decisionCount) {
+
+            html += `
+
+                <span class="stat">
+                    ✅ ${decisionCount} Decisions
+                </span>
+
+            `;
+
+        }
+
+
+        if (promiseCount) {
+
+            html += `
+
+                <span class="stat">
+                    🤝 ${promiseCount} Promises
+                </span>
+
+            `;
+
+        }
+
+
+        if (followupCount) {
+
+            html += `
+
+                <span class="stat">
+                    🔔 ${followupCount} Follow-ups
+                </span>
+
+            `;
+
+        }
+
+
+        if (actionCount) {
+
+            html += `
+
+                <span class="stat">
+                    📋 ${actionCount} Actions
+                </span>
+
+            `;
+
+        }
+
+
+        html += `
 
             </div>
 
@@ -1782,6 +2134,12 @@ async function loadPreviousMeetings() {
         );
 
 
+    const refreshButton =
+        document.getElementById(
+            "refreshBtn"
+        );
+
+
     container.innerHTML = `
 
         <div class="loading-meetings">
@@ -1791,6 +2149,16 @@ async function loadPreviousMeetings() {
         </div>
 
     `;
+
+
+    if (refreshButton) {
+
+        refreshButton.disabled = true;
+
+        refreshButton.innerText =
+            "⏳ Loading...";
+
+    }
 
 
     try {
@@ -1829,6 +2197,10 @@ async function loadPreviousMeetings() {
         }
 
 
+        // ==========================================
+        // GET MEETINGS
+        // ==========================================
+
         let meetings =
             Array.isArray(
                 data.meetings
@@ -1837,7 +2209,9 @@ async function loadPreviousMeetings() {
                 : [];
 
 
-        // Remove empty meetings
+        // ==========================================
+        // REMOVE EMPTY MEETINGS
+        // ==========================================
 
         meetings =
             meetings.filter(
@@ -1846,7 +2220,9 @@ async function loadPreviousMeetings() {
             );
 
 
-        // Newest first
+        // ==========================================
+        // SORT NEWEST FIRST
+        // ==========================================
 
         meetings.sort(
             function(a, b) {
@@ -1869,8 +2245,16 @@ async function loadPreviousMeetings() {
         );
 
 
+        // ==========================================
+        // CLEAR CONTAINER
+        // ==========================================
+
         container.innerHTML = "";
 
+
+        // ==========================================
+        // NO MEETINGS
+        // ==========================================
 
         if (
             meetings.length === 0
@@ -1882,6 +2266,11 @@ async function loadPreviousMeetings() {
 
                     📭 No previous meetings found.
 
+                    <br><br>
+
+                    Your analyzed meetings will
+                    appear here.
+
                 </div>
 
             `;
@@ -1891,13 +2280,21 @@ async function loadPreviousMeetings() {
         }
 
 
+        // ==========================================
+        // DISPLAY MEETINGS
+        // ==========================================
+
         meetings.forEach(
-            function(meeting, index) {
+            function(
+                meeting,
+                index
+            ) {
 
                 const card =
                     createPreviousMeetingCard(
                         meeting,
-                        index
+                        index,
+                        index === 0
                     );
 
 
@@ -1926,12 +2323,26 @@ async function loadPreviousMeetings() {
 
                 <br><br>
 
-                Make sure the FastAPI server
-                is running.
+                ${escapeHtml(
+                    error.message
+                )}
 
             </div>
 
         `;
+
+    }
+
+    finally {
+
+        if (refreshButton) {
+
+            refreshButton.disabled = false;
+
+            refreshButton.innerText =
+                "🔄 Refresh";
+
+        }
 
     }
 
@@ -1966,6 +2377,7 @@ document.addEventListener(
 
     }
 );
+
 
 </script>
 
