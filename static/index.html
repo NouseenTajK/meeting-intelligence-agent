@@ -58,7 +58,7 @@
             padding: 30px;
             border-radius: 18px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
         .record-box {
@@ -143,6 +143,7 @@
         .person {
             font-weight: bold;
             font-size: 17px;
+            margin-bottom: 6px;
         }
 
         .deadline {
@@ -150,9 +151,9 @@
             margin-top: 5px;
         }
 
-        /* =========================================
-           PREVIOUS MEETINGS
-           ========================================= */
+        /* ==========================================
+           PREVIOUS MEETING STYLES
+           ========================================== */
 
         .previous-meeting {
             background: #ffffff;
@@ -161,91 +162,121 @@
             padding: 22px;
             margin: 18px 0;
             border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .meeting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .previous-meeting h3 {
-            margin-top: 0;
-            margin-bottom: 12px;
+            margin: 0 0 8px 0;
             color: #1e3a8a;
             font-size: 21px;
         }
 
         .meeting-date {
-            color: #4b5563;
-            font-size: 15px;
+            color: #6b7280;
+            font-size: 14px;
             margin-bottom: 15px;
+        }
+
+        .meeting-contact {
+            background: #eff6ff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin: 10px 0 15px 0;
         }
 
         .meeting-summary {
             background: #f8fafc;
-            padding: 15px;
+            padding: 18px;
             border-radius: 10px;
             margin: 15px 0;
             line-height: 1.6;
         }
 
+        .meeting-summary p {
+            margin: 8px 0 0 0;
+        }
+
         .section-title {
             font-weight: bold;
-            color: #1f2937;
+            font-size: 16px;
+            color: #1e3a8a;
             margin-top: 18px;
             margin-bottom: 8px;
         }
 
         .meeting-details {
             margin-top: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 5px 15px;
         }
 
         .meeting-details summary {
             cursor: pointer;
             color: #2563eb;
             font-weight: bold;
-            padding: 10px 0;
+            padding: 12px 5px;
+        }
+
+        .meeting-details-content {
+            padding: 5px 5px 15px 5px;
         }
 
         .meeting-transcript {
-            background: #f8fafc;
+            background: white;
             padding: 18px;
-            border-radius: 10px;
-            white-space: pre-wrap;
+            border-radius: 8px;
+            margin: 8px 0 15px 0;
             line-height: 1.7;
-            margin-top: 10px;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
-        .view-details-btn {
-            background: #1e3a8a;
-            color: white;
-            padding: 10px 18px;
-            font-size: 14px;
-            margin: 8px 0 0 0;
+        .loading-meetings {
+            text-align: center;
+            padding: 25px;
+            color: #2563eb;
+            font-weight: bold;
         }
 
         .empty {
             color: #6b7280;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-        }
-
-        .loading-meetings {
-            color: #2563eb;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .meeting-list {
-            margin-top: 20px;
-        }
-
-        .meeting-number {
-            color: #6b7280;
-            font-size: 14px;
-            font-weight: normal;
         }
 
         footer {
             text-align: center;
             padding: 30px;
             color: #6b7280;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 30px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .record-box,
+            .card {
+                padding: 20px;
+            }
+
+            .previous-meeting {
+                padding: 16px;
+            }
+
         }
 
     </style>
@@ -271,9 +302,9 @@
 <div class="container">
 
 
-    <!-- ========================================= -->
-    <!-- RECORDING -->
-    <!-- ========================================= -->
+    <!-- ==========================================
+         RECORDING
+         ========================================== -->
 
     <div class="record-box">
 
@@ -284,12 +315,14 @@
             then click Stop.
         </p>
 
+
         <div
             id="recordStatus"
             class="record-status"
         >
             ⚪ Ready to record
         </div>
+
 
         <div
             id="timer"
@@ -298,6 +331,7 @@
             00:00
         </div>
 
+
         <button
             id="startBtn"
             onclick="startRecording()"
@@ -305,12 +339,14 @@
             🔴 Start Recording
         </button>
 
+
         <button
             id="stopBtn"
             onclick="stopRecording()"
         >
             ⏹️ Stop Recording
         </button>
+
 
         <div id="loading">
 
@@ -322,15 +358,16 @@
 
         </div>
 
+
         <div id="error"></div>
 
     </div>
 
 
 
-    <!-- ========================================= -->
-    <!-- PREVIOUS MEETINGS -->
-    <!-- ========================================= -->
+    <!-- ==========================================
+         PREVIOUS MEETINGS
+         ========================================== -->
 
     <div class="card">
 
@@ -340,10 +377,8 @@
             Review information from your earlier meetings.
         </p>
 
-        <div
-            id="previousMeetings"
-            class="meeting-list"
-        >
+
+        <div id="previousMeetings">
 
             <div class="loading-meetings">
                 ⏳ Loading previous meetings...
@@ -355,17 +390,15 @@
 
 
 
-    <!-- ========================================= -->
-    <!-- CURRENT RESULTS -->
-    <!-- ========================================= -->
+    <!-- ==========================================
+         CURRENT RESULTS
+         ========================================== -->
 
     <div
         id="results"
         class="results"
     >
 
-
-        <!-- TRANSCRIPT -->
 
         <div class="card">
 
@@ -379,7 +412,6 @@
         </div>
 
 
-        <!-- SUMMARY -->
 
         <div class="card">
 
@@ -390,7 +422,6 @@
         </div>
 
 
-        <!-- DISCUSSION -->
 
         <div class="card">
 
@@ -401,7 +432,6 @@
         </div>
 
 
-        <!-- DECISIONS -->
 
         <div class="card">
 
@@ -412,7 +442,6 @@
         </div>
 
 
-        <!-- PROMISES -->
 
         <div class="card">
 
@@ -423,7 +452,6 @@
         </div>
 
 
-        <!-- FOLLOW UPS -->
 
         <div class="card">
 
@@ -434,7 +462,6 @@
         </div>
 
 
-        <!-- ACTION ITEMS -->
 
         <div class="card">
 
@@ -478,12 +505,39 @@ let seconds = 0;
 
 
 // ==================================================
+// ESCAPE HTML
+// ==================================================
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+// ==================================================
 // START RECORDING
 // ==================================================
 
 async function startRecording() {
 
     console.log("Start Recording clicked");
+
 
     try {
 
@@ -498,19 +552,24 @@ async function startRecording() {
 
         }
 
+
         const stream =
             await navigator.mediaDevices.getUserMedia({
                 audio: true
             });
 
+
         console.log(
             "Microphone permission granted"
         );
 
+
         audioChunks = [];
+
 
         mediaRecorder =
             new MediaRecorder(stream);
+
 
         mediaRecorder.ondataavailable =
             function(event) {
@@ -533,11 +592,13 @@ async function startRecording() {
                     "Recording stopped"
                 );
 
+
                 stream
                     .getTracks()
                     .forEach(
                         track => track.stop()
                     );
+
 
                 const audioBlob =
                     new Blob(
@@ -546,6 +607,7 @@ async function startRecording() {
                             type: "audio/webm"
                         }
                     );
+
 
                 sendAudioToServer(
                     audioBlob
@@ -557,20 +619,18 @@ async function startRecording() {
         mediaRecorder.start();
 
 
-        // ==========================================
-        // RESET TIMER
-        // ==========================================
+        // Reset timer
 
         clearInterval(timerInterval);
+
+        timerInterval = null;
 
         seconds = 0;
 
         updateTimer();
 
 
-        // ==========================================
-        // START TIMER
-        // ==========================================
+        // Start timer
 
         timerInterval =
             setInterval(
@@ -584,10 +644,6 @@ async function startRecording() {
                 1000
             );
 
-
-        // ==========================================
-        // BUTTONS
-        // ==========================================
 
         document.getElementById(
             "startBtn"
@@ -616,6 +672,7 @@ async function startRecording() {
 
         console.error(error);
 
+
         document.getElementById(
             "error"
         ).innerText =
@@ -639,9 +696,11 @@ function stopRecording() {
     );
 
 
-    // STOP TIMER IMMEDIATELY
+    // Stop timer immediately
 
-    clearInterval(timerInterval);
+    clearInterval(
+        timerInterval
+    );
 
     timerInterval = null;
 
@@ -658,14 +717,12 @@ function stopRecording() {
 
     document.getElementById(
         "startBtn"
-    ).style.display =
-        "inline-block";
+    ).style.display = "inline-block";
 
 
     document.getElementById(
         "stopBtn"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 
     document.getElementById(
@@ -809,8 +866,6 @@ async function sendAudioToServer(
         );
 
 
-        // Refresh previous meetings
-
         loadPreviousMeetings();
 
 
@@ -819,6 +874,7 @@ async function sendAudioToServer(
     catch (err) {
 
         console.error(err);
+
 
         error.innerText =
             "❌ " + err.message;
@@ -920,16 +976,25 @@ function displayResults(
                 div.innerHTML = `
 
                     <div class="person">
-                        👤 ${escapeHtml(item.person || "Unknown")}
+                        👤 ${escapeHtml(
+                            item.person ||
+                            "Unknown"
+                        )}
                     </div>
 
                     <div>
-                        📌 ${escapeHtml(item.task || "No task")}
+                        📌 ${escapeHtml(
+                            item.task ||
+                            "No task"
+                        )}
                     </div>
 
                     <div class="deadline">
                         ⏰ Deadline:
-                        ${escapeHtml(item.deadline || "Not specified")}
+                        ${escapeHtml(
+                            item.deadline ||
+                            "Not specified"
+                        )}
                     </div>
 
                 `;
@@ -1021,7 +1086,13 @@ function fillList(
 
 
             li.innerText =
-                item;
+                typeof item === "object"
+                    ? (
+                        item.text ||
+                        item.description ||
+                        JSON.stringify(item)
+                    )
+                    : item;
 
 
             list.appendChild(
@@ -1036,35 +1107,15 @@ function fillList(
 
 
 // ==================================================
-// ESCAPE HTML
-// ==================================================
-
-function escapeHtml(value) {
-
-    if (value === null || value === undefined) {
-
-        return "";
-
-    }
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-
-// ==================================================
-// CHECK WHETHER MEETING HAS USEFUL INFORMATION
+// CHECK USEFUL MEETING
 // ==================================================
 
 function isUsefulMeeting(meeting) {
 
-    if (!meeting) {
+    if (
+        !meeting ||
+        typeof meeting !== "object"
+    ) {
 
         return false;
 
@@ -1080,12 +1131,35 @@ function isUsefulMeeting(meeting) {
     const hasArray =
         value =>
             Array.isArray(value) &&
-            value.length > 0;
+            value.some(
+                item => {
+
+                    if (
+                        typeof item === "object" &&
+                        item !== null
+                    ) {
+
+                        return Object.values(item)
+                            .some(
+                                value =>
+                                    value !== null &&
+                                    value !== undefined &&
+                                    String(value).trim() !== ""
+                            );
+
+                    }
+
+                    return (
+                        item !== null &&
+                        item !== undefined &&
+                        String(item).trim() !== ""
+                    );
+
+                }
+            );
 
 
     return (
-
-        hasText(meeting.created_at) ||
 
         hasText(meeting.summary) ||
 
@@ -1094,6 +1168,8 @@ function isUsefulMeeting(meeting) {
         hasText(meeting.contact_name) ||
 
         hasText(meeting.contact) ||
+
+        hasText(meeting.created_at) ||
 
         hasArray(meeting.discussion_points) ||
 
@@ -1112,10 +1188,12 @@ function isUsefulMeeting(meeting) {
 
 
 // ==================================================
-// FORMAT DATE
+// FORMAT MEETING DATE
 // ==================================================
 
-function formatMeetingDate(dateValue) {
+function formatMeetingDate(
+    dateValue
+) {
 
     if (!dateValue) {
 
@@ -1130,9 +1208,15 @@ function formatMeetingDate(dateValue) {
             new Date(dateValue);
 
 
-        if (isNaN(date.getTime())) {
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
 
-            return dateValue;
+            return String(
+                dateValue
+            );
 
         }
 
@@ -1153,7 +1237,9 @@ function formatMeetingDate(dateValue) {
 
     catch (error) {
 
-        return dateValue;
+        return String(
+            dateValue
+        );
 
     }
 
@@ -1181,31 +1267,87 @@ function createMeetingListSection(
     }
 
 
+    const validItems =
+        items.filter(
+            item => {
+
+                if (
+                    item === null ||
+                    item === undefined
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    typeof item === "object"
+                ) {
+
+                    return Object.values(item)
+                        .some(
+                            value =>
+                                value !== null &&
+                                value !== undefined &&
+                                String(value).trim() !== ""
+                        );
+
+                }
+
+
+                return String(
+                    item
+                ).trim() !== "";
+
+            }
+        );
+
+
+    if (
+        validItems.length === 0
+    ) {
+
+        return "";
+
+    }
+
+
     let html = `
 
         <div class="section-title">
-            ${emoji} ${title}
+
+            ${emoji}
+            ${escapeHtml(title)}
+
         </div>
 
         <ul>
+
     `;
 
 
-    items.forEach(
+    validItems.forEach(
         item => {
 
             if (
-                typeof item === "object"
+                typeof item === "object" &&
+                item !== null
             ) {
 
+                const text =
+                    item.text ||
+                    item.description ||
+                    item.task ||
+                    JSON.stringify(item);
+
+
                 html += `
+
                     <li>
-                        ${escapeHtml(
-                            item.text ||
-                            item.description ||
-                            JSON.stringify(item)
-                        )}
+                        ${escapeHtml(text)}
                     </li>
+
                 `;
 
             }
@@ -1213,9 +1355,11 @@ function createMeetingListSection(
             else {
 
                 html += `
+
                     <li>
                         ${escapeHtml(item)}
                     </li>
+
                 `;
 
             }
@@ -1255,6 +1399,52 @@ function createMeetingActionItems(
     }
 
 
+    const validItems =
+        items.filter(
+            item => {
+
+                if (
+                    item === null ||
+                    item === undefined
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    typeof item === "object"
+                ) {
+
+                    return Object.values(item)
+                        .some(
+                            value =>
+                                value !== null &&
+                                value !== undefined &&
+                                String(value).trim() !== ""
+                        );
+
+                }
+
+
+                return String(
+                    item
+                ).trim() !== "";
+
+            }
+        );
+
+
+    if (
+        validItems.length === 0
+    ) {
+
+        return "";
+
+    }
+
+
     let html = `
 
         <div class="section-title">
@@ -1264,11 +1454,12 @@ function createMeetingActionItems(
     `;
 
 
-    items.forEach(
+    validItems.forEach(
         item => {
 
             if (
-                typeof item === "object"
+                typeof item === "object" &&
+                item !== null
             ) {
 
                 html += `
@@ -1276,27 +1467,34 @@ function createMeetingActionItems(
                     <div class="action">
 
                         <div class="person">
+
                             👤
                             ${escapeHtml(
                                 item.person ||
                                 "Unknown"
                             )}
+
                         </div>
 
                         <div>
+
                             📌
                             ${escapeHtml(
                                 item.task ||
+                                item.description ||
                                 "No task"
                             )}
+
                         </div>
 
                         <div class="deadline">
+
                             ⏰ Deadline:
                             ${escapeHtml(
                                 item.deadline ||
                                 "Not specified"
                             )}
+
                         </div>
 
                     </div>
@@ -1310,7 +1508,10 @@ function createMeetingActionItems(
                 html += `
 
                     <div class="action">
-                        📌 ${escapeHtml(item)}
+
+                        📌
+                        ${escapeHtml(item)}
+
                     </div>
 
                 `;
@@ -1347,10 +1548,10 @@ function createPreviousMeetingCard(
 
 
     const meetingNumber =
-        meeting.id ||
-        meeting.meeting_id ||
-        meeting._id ||
         meeting.meeting_number ||
+        meeting.meeting_id ||
+        meeting.id ||
+        meeting._id ||
         (index + 1);
 
 
@@ -1362,15 +1563,61 @@ function createPreviousMeetingCard(
 
     let html = `
 
-        <h3>
-            📅 Meeting ${escapeHtml(meetingNumber)}
-        </h3>
+        <div class="meeting-header">
 
-        <div class="meeting-date">
-            🕒 ${escapeHtml(date)}
+            <div>
+
+                <h3>
+
+                    📅 Meeting
+                    ${escapeHtml(
+                        String(meetingNumber)
+                    )}
+
+                </h3>
+
+                <div class="meeting-date">
+
+                    🕒
+                    ${escapeHtml(date)}
+
+                </div>
+
+            </div>
+
         </div>
 
     `;
+
+
+    // ==========================================
+    // CONTACT
+    // ==========================================
+
+    const contact =
+        meeting.contact_name ||
+        meeting.contact;
+
+
+    if (
+        contact &&
+        String(contact).trim()
+    ) {
+
+        html += `
+
+            <div class="meeting-contact">
+
+                👤
+                <strong>Contact:</strong>
+
+                ${escapeHtml(contact)}
+
+            </div>
+
+        `;
+
+    }
 
 
     // ==========================================
@@ -1386,13 +1633,19 @@ function createPreviousMeetingCard(
 
             <div class="meeting-summary">
 
-                <strong>📌 SUMMARY</strong>
+                <div class="section-title">
 
-                <br><br>
+                    📌 Summary
 
-                ${escapeHtml(
-                    meeting.summary
-                )}
+                </div>
+
+                <p>
+
+                    ${escapeHtml(
+                        meeting.summary
+                    )}
+
+                </p>
 
             </div>
 
@@ -1408,51 +1661,62 @@ function createPreviousMeetingCard(
     let detailsHtml = "";
 
 
-    detailsHtml += createMeetingListSection(
-        "Discussion Points",
-        "💬",
-        meeting.discussion_points
-    );
+    detailsHtml +=
+        createMeetingListSection(
+            "Discussion Points",
+            "💬",
+            meeting.discussion_points
+        );
 
 
-    detailsHtml += createMeetingListSection(
-        "Decisions",
-        "✅",
-        meeting.decisions
-    );
+    detailsHtml +=
+        createMeetingListSection(
+            "Decisions",
+            "✅",
+            meeting.decisions
+        );
 
 
-    detailsHtml += createMeetingListSection(
-        "Promises",
-        "🤝",
-        meeting.promises
-    );
+    detailsHtml +=
+        createMeetingListSection(
+            "Promises",
+            "🤝",
+            meeting.promises
+        );
 
 
-    detailsHtml += createMeetingListSection(
-        "Follow-ups",
-        "🔔",
-        meeting.follow_ups
-    );
+    detailsHtml +=
+        createMeetingListSection(
+            "Follow-ups",
+            "🔔",
+            meeting.follow_ups
+        );
 
 
-    detailsHtml += createMeetingActionItems(
-        meeting.action_items
-    );
+    detailsHtml +=
+        createMeetingActionItems(
+            meeting.action_items
+        );
 
 
-    if (detailsHtml.trim()) {
+    if (
+        detailsHtml.trim()
+    ) {
 
         html += `
 
             <details class="meeting-details">
 
                 <summary>
+
                     🔎 View Meeting Details
+
                 </summary>
 
-                <div>
+                <div class="meeting-details-content">
+
                     ${detailsHtml}
+
                 </div>
 
             </details>
@@ -1476,13 +1740,17 @@ function createPreviousMeetingCard(
             <details class="meeting-details">
 
                 <summary>
+
                     📝 View Full Transcript
+
                 </summary>
 
                 <div class="meeting-transcript">
+
                     ${escapeHtml(
                         meeting.transcript
                     )}
+
                 </div>
 
             </details>
@@ -1517,7 +1785,9 @@ async function loadPreviousMeetings() {
     container.innerHTML = `
 
         <div class="loading-meetings">
+
             ⏳ Loading previous meetings...
+
         </div>
 
     `;
@@ -1559,19 +1829,15 @@ async function loadPreviousMeetings() {
         }
 
 
-        // ==========================================
-        // GET MEETINGS
-        // ==========================================
-
         let meetings =
-            Array.isArray(data.meetings)
+            Array.isArray(
+                data.meetings
+            )
                 ? data.meetings.slice()
                 : [];
 
 
-        // ==========================================
-        // REMOVE EMPTY MEETINGS
-        // ==========================================
+        // Remove empty meetings
 
         meetings =
             meetings.filter(
@@ -1580,9 +1846,7 @@ async function loadPreviousMeetings() {
             );
 
 
-        // ==========================================
-        // SORT NEWEST FIRST
-        // ==========================================
+        // Newest first
 
         meetings.sort(
             function(a, b) {
@@ -1605,10 +1869,6 @@ async function loadPreviousMeetings() {
         );
 
 
-        // ==========================================
-        // NO MEETINGS
-        // ==========================================
-
         container.innerHTML = "";
 
 
@@ -1630,10 +1890,6 @@ async function loadPreviousMeetings() {
 
         }
 
-
-        // ==========================================
-        // DISPLAY MEETINGS
-        // ==========================================
 
         meetings.forEach(
             function(meeting, index) {
@@ -1691,7 +1947,7 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        // Always begin with timer at 00:00
+        // Always start timer at 00:00
 
         clearInterval(
             timerInterval
@@ -1710,7 +1966,6 @@ document.addEventListener(
 
     }
 );
-
 
 </script>
 
