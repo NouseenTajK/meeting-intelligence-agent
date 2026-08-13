@@ -1,12 +1,20 @@
-from dataclasses import dataclass
-from typing import List
+from datetime import datetime
 
 
-@dataclass
-class Meeting:
-    contact_name: str
-    contact_email: str
-    meeting_date: str
-    discussion: str
-    commitments: List[str]
-    follow_ups: List[str]
+def create_meeting(
+    contact_name,
+    meeting_date,
+    summary,
+    discussion_points=None,
+    promises=None,
+    follow_ups=None
+):
+    return {
+        "contact_name": contact_name,
+        "meeting_date": meeting_date,
+        "summary": summary,
+        "discussion_points": discussion_points or [],
+        "promises": promises or [],
+        "follow_ups": follow_ups or [],
+        "created_at": datetime.utcnow()
+    }
