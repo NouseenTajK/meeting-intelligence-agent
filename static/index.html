@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -22,6 +22,10 @@
             background: #f4f7fb;
             color: #1f2937;
         }
+
+        /* =========================================
+           HEADER
+        ========================================= */
 
         header {
             background: linear-gradient(
@@ -46,11 +50,19 @@
             font-size: 18px;
         }
 
+        /* =========================================
+           CONTAINER
+        ========================================= */
+
         .container {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 35px auto;
             padding: 20px;
         }
+
+        /* =========================================
+           GENERAL CARDS
+        ========================================= */
 
         .record-box,
         .card {
@@ -60,6 +72,14 @@
             margin-bottom: 25px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        /* =========================================
+           RECORDING BOX
+        ========================================= */
 
         .record-box {
             text-align: center;
@@ -75,6 +95,7 @@
             font-size: 36px;
             font-weight: bold;
             margin: 20px;
+            font-family: monospace;
         }
 
         button {
@@ -115,6 +136,10 @@
             margin: 20px;
         }
 
+        /* =========================================
+           RESULTS
+        ========================================= */
+
         .results {
             display: none;
         }
@@ -132,10 +157,14 @@
             line-height: 1.5;
         }
 
+        /* =========================================
+           ACTION ITEMS
+        ========================================= */
+
         .action {
             background: #f8fafc;
             border-left: 5px solid #2563eb;
-            padding: 15px;
+            padding: 16px;
             margin: 10px 0;
             border-radius: 8px;
         }
@@ -143,45 +172,237 @@
         .person {
             font-weight: bold;
             font-size: 17px;
+            margin-bottom: 7px;
         }
 
         .deadline {
             color: #4b5563;
-            margin-top: 5px;
+            margin-top: 7px;
         }
+
+        /* =========================================
+           PREVIOUS MEETINGS
+        ========================================= */
 
         .previous-meeting {
-            background: #f8fafc;
-            border-left: 5px solid #1e3a8a;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-left: 6px solid #1e3a8a;
+            padding: 24px;
+            margin: 18px 0;
+            border-radius: 14px;
+            box-shadow: 0 5px 16px rgba(0,0,0,0.05);
         }
 
-        .previous-meeting h3 {
-            margin-top: 0;
-            color: #1e3a8a;
+        .previous-meeting:hover {
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
         }
+
+        .meeting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .meeting-title {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 22px;
+        }
+
+        .meeting-date {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 7px;
+        }
+
+        .meeting-number {
+            background: #eff6ff;
+            color: #1e3a8a;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* =========================================
+           MEETING SECTIONS
+        ========================================= */
+
+        .meeting-section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .summary-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 15px;
+            line-height: 1.6;
+        }
+
+        .meeting-list {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .meeting-list li {
+            margin: 8px 0;
+        }
+
+        /* =========================================
+           BADGES
+        ========================================= */
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .badge-discussion {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .badge-decision {
+            background: #ecfdf5;
+            color: #15803d;
+        }
+
+        .badge-promise {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .badge-followup {
+            background: #fefce8;
+            color: #a16207;
+        }
+
+        .badge-action {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        /* =========================================
+           PREVIOUS ACTION CARDS
+        ========================================= */
+
+        .previous-action {
+            background: #f8fafc;
+            border-left: 4px solid #7c3aed;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .previous-action .person {
+            color: #374151;
+        }
+
+        .previous-action .task {
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+
+        .previous-action .deadline {
+            font-size: 14px;
+        }
+
+        /* =========================================
+           TRANSCRIPT
+        ========================================= */
 
         details {
-            margin-top: 15px;
-            cursor: pointer;
+            margin-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
         }
 
         summary {
             font-weight: bold;
             color: #2563eb;
+            cursor: pointer;
         }
+
+        .transcript-previous {
+            margin-top: 15px;
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
 
         .empty {
             color: #6b7280;
-            padding: 15px;
+            padding: 20px;
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 10px;
         }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
 
         footer {
             text-align: center;
             padding: 30px;
             color: #6b7280;
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            header h1 {
+                font-size: 30px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .record-box,
+            .card {
+                padding: 20px;
+            }
+
+            .meeting-header {
+                flex-direction: column;
+            }
+
+            .meeting-number {
+                align-self: flex-start;
+            }
+
         }
 
     </style>
@@ -191,6 +412,10 @@
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -207,9 +432,9 @@
 <div class="container">
 
 
-    <!-- ============================= -->
-    <!-- RECORDING -->
-    <!-- ============================= -->
+    <!-- =========================================
+         RECORDING
+    ========================================= -->
 
     <div class="record-box">
 
@@ -270,9 +495,9 @@
 
 
 
-    <!-- ============================= -->
-    <!-- PREVIOUS MEETINGS -->
-    <!-- ============================= -->
+    <!-- =========================================
+         PREVIOUS MEETINGS
+    ========================================= -->
 
     <div class="card">
 
@@ -293,15 +518,17 @@
 
 
 
-    <!-- ============================= -->
-    <!-- CURRENT RESULTS -->
-    <!-- ============================= -->
+    <!-- =========================================
+         CURRENT RESULTS
+    ========================================= -->
 
     <div
         id="results"
         class="results"
     >
 
+
+        <!-- TRANSCRIPT -->
 
         <div class="card">
 
@@ -316,6 +543,8 @@
 
 
 
+        <!-- SUMMARY -->
+
         <div class="card">
 
             <h2>📌 Summary</h2>
@@ -325,6 +554,8 @@
         </div>
 
 
+
+        <!-- DISCUSSION -->
 
         <div class="card">
 
@@ -336,6 +567,8 @@
 
 
 
+        <!-- DECISIONS -->
+
         <div class="card">
 
             <h2>✅ Decisions</h2>
@@ -345,6 +578,8 @@
         </div>
 
 
+
+        <!-- PROMISES -->
 
         <div class="card">
 
@@ -356,6 +591,8 @@
 
 
 
+        <!-- FOLLOW UPS -->
+
         <div class="card">
 
             <h2>🔔 Follow-ups</h2>
@@ -365,6 +602,8 @@
         </div>
 
 
+
+        <!-- ACTION ITEMS -->
 
         <div class="card">
 
@@ -404,7 +643,6 @@ let audioChunks = [];
 let timerInterval = null;
 
 let seconds = 0;
-
 
 
 // ==================================================
@@ -499,17 +737,16 @@ async function startRecording() {
         // RESET TIMER
         // ==========================================
 
+        clearInterval(timerInterval);
+
         seconds = 0;
 
         updateTimer();
 
 
-        // Make sure no previous timer is running
-
-        clearInterval(timerInterval);
-
-
-        // Start timer
+        // ==========================================
+        // START TIMER
+        // ==========================================
 
         timerInterval =
             setInterval(
@@ -580,16 +817,14 @@ function stopRecording() {
 
     // Stop timer immediately
 
-    if (timerInterval !== null) {
+    clearInterval(
+        timerInterval
+    );
 
-        clearInterval(timerInterval);
-
-        timerInterval = null;
-
-    }
+    timerInterval = null;
 
 
-    // Stop recorder
+    // Stop MediaRecorder
 
     if (
         mediaRecorder &&
@@ -603,8 +838,27 @@ function stopRecording() {
 
     // Stop microphone tracks
 
-    // This is also handled inside onstop,
-    // so we don't stop them twice here.
+    if (mediaRecorder) {
+
+        try {
+
+            mediaRecorder.stream
+                ?.getTracks()
+                .forEach(
+                    track => track.stop()
+                );
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Stream already stopped"
+            );
+
+        }
+
+    }
 
 
     // ==========================================
@@ -631,7 +885,7 @@ function stopRecording() {
 
 
 // ==================================================
-// TIMER
+// TIMER DISPLAY
 // ==================================================
 
 function updateTimer() {
@@ -766,7 +1020,6 @@ async function sendAudioToServer(
 
         loadPreviousMeetings();
 
-
     }
 
     catch (err) {
@@ -871,22 +1124,62 @@ function displayResults(
                 typeof item === "object"
             ) {
 
-                div.innerHTML = `
+                const person =
+                    document.createElement(
+                        "div"
+                    );
 
-                    <div class="person">
-                        👤 ${item.person || "Unknown"}
-                    </div>
+                person.className =
+                    "person";
 
-                    <div>
-                        📌 ${item.task || "No task"}
-                    </div>
+                person.innerText =
+                    "👤 " +
+                    (
+                        item.person ||
+                        "Unknown"
+                    );
 
-                    <div class="deadline">
-                        ⏰ Deadline:
-                        ${item.deadline || "Not specified"}
-                    </div>
 
-                `;
+                const task =
+                    document.createElement(
+                        "div"
+                    );
+
+                task.innerText =
+                    "📌 " +
+                    (
+                        item.task ||
+                        "No task"
+                    );
+
+
+                const deadline =
+                    document.createElement(
+                        "div"
+                    );
+
+                deadline.className =
+                    "deadline";
+
+                deadline.innerText =
+                    "⏰ Deadline: " +
+                    (
+                        item.deadline ||
+                        "Not specified"
+                    );
+
+
+                div.appendChild(
+                    person
+                );
+
+                div.appendChild(
+                    task
+                );
+
+                div.appendChild(
+                    deadline
+                );
 
             }
 
@@ -990,6 +1283,249 @@ function fillList(
 
 
 // ==================================================
+// FORMAT DATE
+// ==================================================
+
+function formatMeetingDate(
+    dateValue
+) {
+
+    if (!dateValue) {
+
+        return "Date not available";
+
+    }
+
+
+    try {
+
+        let normalizedDate =
+            dateValue;
+
+
+        /*
+         * MongoDB/Python may return:
+         *
+         * 2026-08-12T18:05:47.743179
+         *
+         * JavaScript can handle the ISO date,
+         * but some Python timestamps have
+         * more than 3 milliseconds.
+         */
+
+
+        if (
+            typeof normalizedDate ===
+            "string"
+        ) {
+
+            normalizedDate =
+                normalizedDate
+                    .replace(
+                        /(\.\d{3})\d+/,
+                        "$1"
+                    );
+
+        }
+
+
+        const date =
+            new Date(
+                normalizedDate
+            );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return dateValue;
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Date formatting error:",
+            error
+        );
+
+
+        return dateValue;
+
+    }
+
+}
+
+
+
+// ==================================================
+// CREATE LIST HTML SAFELY
+// ==================================================
+
+function createListHTML(
+    items
+) {
+
+    if (
+        !items ||
+        !items.length
+    ) {
+
+        return `
+            <div class="empty">
+                No information available.
+            </div>
+        `;
+
+    }
+
+
+    return `
+
+        <ul class="meeting-list">
+
+            ${
+                items
+                    .map(
+                        item =>
+                            `<li>${escapeHTML(item)}</li>`
+                    )
+                    .join("")
+            }
+
+        </ul>
+
+    `;
+
+}
+
+
+
+// ==================================================
+// ESCAPE HTML
+// ==================================================
+
+function escapeHTML(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+// ==================================================
+// CREATE ACTION ITEM HTML
+// ==================================================
+
+function createPreviousActionHTML(
+    item
+) {
+
+    if (
+        typeof item === "object" &&
+        item !== null
+    ) {
+
+        return `
+
+            <div class="previous-action">
+
+                <div class="person">
+                    👤 ${escapeHTML(
+                        item.person ||
+                        "Unknown"
+                    )}
+                </div>
+
+                <div class="task">
+                    📌 ${escapeHTML(
+                        item.task ||
+                        "No task"
+                    )}
+                </div>
+
+                <div class="deadline">
+                    ⏰ Deadline:
+                    ${escapeHTML(
+                        item.deadline ||
+                        "Not specified"
+                    )}
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="previous-action">
+
+            <div class="task">
+                📌 ${escapeHTML(item)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ==================================================
 // LOAD PREVIOUS MEETINGS
 // ==================================================
 
@@ -1047,12 +1583,15 @@ async function loadPreviousMeetings() {
             data.meetings.length === 0
         ) {
 
-            container.innerHTML =
-                `
+            container.innerHTML = `
+
                 <div class="empty">
+
                     📭 No previous meetings found.
+
                 </div>
-                `;
+
+            `;
 
 
             return;
@@ -1060,7 +1599,9 @@ async function loadPreviousMeetings() {
         }
 
 
-        // Newest meeting first
+        // ==========================================
+        // NEWEST MEETING FIRST
+        // ==========================================
 
         const meetings =
             data.meetings
@@ -1081,58 +1622,63 @@ async function loadPreviousMeetings() {
                     "previous-meeting";
 
 
+                // ==================================
+                // DATE
+                // ==================================
+
+                const formattedDate =
+                    formatMeetingDate(
+                        meeting.created_at
+                    );
+
+
+                // ==================================
+                // SUMMARY
+                // ==================================
+
                 let html = `
 
-                    <h3>
-                        📅 Previous Meeting
-                    </h3>
+                    <div class="meeting-header">
+
+                        <div>
+
+                            <h3 class="meeting-title">
+
+                                📅 Meeting ${
+                                    meetings.length -
+                                    index
+                                }
+
+                            </h3>
+
+                            <div class="meeting-date">
+
+                                🕒 ${escapeHTML(
+                                    formattedDate
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="meeting-number">
+
+                            MEETING ${
+                                meetings.length -
+                                index
+                            }
+
+                        </div>
+
+                    </div>
 
                 `;
 
 
-                // Date
-
-                if (
-                    meeting.created_at
-                ) {
-
-                    html += `
-
-                        <p>
-                            🕒
-                            <strong>Date:</strong>
-                            ${meeting.created_at}
-                        </p>
-
-                    `;
-
-                }
-
-
-                // Contact
-
-                if (
-                    meeting.contact_name ||
-                    meeting.contact
-                ) {
-
-                    html += `
-
-                        <p>
-                            👤
-                            <strong>Contact:</strong>
-                            ${
-                                meeting.contact_name ||
-                                meeting.contact
-                            }
-                        </p>
-
-                    `;
-
-                }
-
-
-                // Summary
+                // ==================================
+                // SUMMARY
+                // ==================================
 
                 if (
                     meeting.summary
@@ -1140,18 +1686,195 @@ async function loadPreviousMeetings() {
 
                     html += `
 
-                        <p>
-                            📌
-                            <strong>Summary:</strong>
-                            ${meeting.summary}
-                        </p>
+                        <div class="meeting-section">
+
+                            <div class="section-title">
+
+                                📌 SUMMARY
+
+                            </div>
+
+                            <div class="summary-box">
+
+                                ${escapeHTML(
+                                    meeting.summary
+                                )}
+
+                            </div>
+
+                        </div>
 
                     `;
 
                 }
 
 
-                // Transcript
+                // ==================================
+                // DISCUSSION
+                // ==================================
+
+                if (
+                    meeting.discussion_points &&
+                    meeting.discussion_points.length
+                ) {
+
+                    html += `
+
+                        <div class="meeting-section">
+
+                            <span class="badge badge-discussion">
+
+                                💬 DISCUSSION POINTS
+
+                            </span>
+
+                            ${createListHTML(
+                                meeting.discussion_points
+                            )}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                // ==================================
+                // DECISIONS
+                // ==================================
+
+                if (
+                    meeting.decisions &&
+                    meeting.decisions.length
+                ) {
+
+                    html += `
+
+                        <div class="meeting-section">
+
+                            <span class="badge badge-decision">
+
+                                ✅ DECISIONS
+
+                            </span>
+
+                            ${createListHTML(
+                                meeting.decisions
+                            )}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                // ==================================
+                // PROMISES
+                // ==================================
+
+                if (
+                    meeting.promises &&
+                    meeting.promises.length
+                ) {
+
+                    html += `
+
+                        <div class="meeting-section">
+
+                            <span class="badge badge-promise">
+
+                                🤝 PROMISES
+
+                            </span>
+
+                            ${createListHTML(
+                                meeting.promises
+                            )}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                // ==================================
+                // FOLLOW-UPS
+                // ==================================
+
+                if (
+                    meeting.follow_ups &&
+                    meeting.follow_ups.length
+                ) {
+
+                    html += `
+
+                        <div class="meeting-section">
+
+                            <span class="badge badge-followup">
+
+                                🔔 FOLLOW-UPS
+
+                            </span>
+
+                            ${createListHTML(
+                                meeting.follow_ups
+                            )}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                // ==================================
+                // ACTION ITEMS
+                // ==================================
+
+                if (
+                    meeting.action_items &&
+                    meeting.action_items.length
+                ) {
+
+                    html += `
+
+                        <div class="meeting-section">
+
+                            <span class="badge badge-action">
+
+                                📋 ACTION ITEMS
+
+                            </span>
+
+                    `;
+
+
+                    meeting.action_items.forEach(
+                        item => {
+
+                            html +=
+                                createPreviousActionHTML(
+                                    item
+                                );
+
+                        }
+                    );
+
+
+                    html += `
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                // ==================================
+                // TRANSCRIPT
+                // ==================================
 
                 if (
                     meeting.transcript
@@ -1162,226 +1885,22 @@ async function loadPreviousMeetings() {
                         <details>
 
                             <summary>
-                                📝 View Transcript
+
+                                📝 View Full Transcript
+
                             </summary>
 
-                            <p style="
-                                white-space: pre-wrap;
-                                line-height: 1.6;
-                            ">
-                                ${meeting.transcript}
-                            </p>
+                            <div class="transcript-previous">
+
+                                ${escapeHTML(
+                                    meeting.transcript
+                                )}
+
+                            </div>
 
                         </details>
 
                     `;
-
-                }
-
-
-                // Discussion
-
-                if (
-                    meeting.discussion_points &&
-                    meeting.discussion_points.length
-                ) {
-
-                    html += `
-
-                        <p>
-                            💬
-                            <strong>
-                                Discussion Points
-                            </strong>
-                        </p>
-
-                        <ul>
-                            ${
-                                meeting.discussion_points
-                                    .map(
-                                        item =>
-                                            `<li>${item}</li>`
-                                    )
-                                    .join("")
-                            }
-                        </ul>
-
-                    `;
-
-                }
-
-
-                // Decisions
-
-                if (
-                    meeting.decisions &&
-                    meeting.decisions.length
-                ) {
-
-                    html += `
-
-                        <p>
-                            ✅
-                            <strong>
-                                Decisions
-                            </strong>
-                        </p>
-
-                        <ul>
-                            ${
-                                meeting.decisions
-                                    .map(
-                                        item =>
-                                            `<li>${item}</li>`
-                                    )
-                                    .join("")
-                            }
-                        </ul>
-
-                    `;
-
-                }
-
-
-                // Promises
-
-                if (
-                    meeting.promises &&
-                    meeting.promises.length
-                ) {
-
-                    html += `
-
-                        <p>
-                            🤝
-                            <strong>
-                                Promises
-                            </strong>
-                        </p>
-
-                        <ul>
-                            ${
-                                meeting.promises
-                                    .map(
-                                        item =>
-                                            `<li>${item}</li>`
-                                    )
-                                    .join("")
-                            }
-                        </ul>
-
-                    `;
-
-                }
-
-
-                // Follow-ups
-
-                if (
-                    meeting.follow_ups &&
-                    meeting.follow_ups.length
-                ) {
-
-                    html += `
-
-                        <p>
-                            🔔
-                            <strong>
-                                Follow-ups
-                            </strong>
-                        </p>
-
-                        <ul>
-                            ${
-                                meeting.follow_ups
-                                    .map(
-                                        item =>
-                                            `<li>${item}</li>`
-                                    )
-                                    .join("")
-                            }
-                        </ul>
-
-                    `;
-
-                }
-
-
-                // Action items
-
-                if (
-                    meeting.action_items &&
-                    meeting.action_items.length
-                ) {
-
-                    html += `
-
-                        <p>
-                            📋
-                            <strong>
-                                Action Items
-                            </strong>
-                        </p>
-
-                    `;
-
-
-                    meeting.action_items.forEach(
-                        item => {
-
-                            if (
-                                typeof item ===
-                                "object"
-                            ) {
-
-                                html += `
-
-                                    <div class="action">
-
-                                        <div class="person">
-                                            👤
-                                            ${
-                                                item.person ||
-                                                "Unknown"
-                                            }
-                                        </div>
-
-                                        <div>
-                                            📌
-                                            ${
-                                                item.task ||
-                                                "No task"
-                                            }
-                                        </div>
-
-                                        <div class="deadline">
-                                            ⏰ Deadline:
-                                            ${
-                                                item.deadline ||
-                                                "Not specified"
-                                            }
-                                        </div>
-
-                                    </div>
-
-                                `;
-
-                            }
-
-                            else {
-
-                                html += `
-
-                                    <div class="action">
-                                        📌 ${item}
-                                    </div>
-
-                                `;
-
-                            }
-
-                        }
-                    );
 
                 }
 
@@ -1438,6 +1957,10 @@ document.addEventListener(
 
         // Always start timer at 00:00
 
+        clearInterval(
+            timerInterval
+        );
+
         seconds = 0;
 
         updateTimer();
@@ -1450,10 +1973,10 @@ document.addEventListener(
     }
 );
 
+
 </script>
 
 
 </body>
 
 </html>
-```
