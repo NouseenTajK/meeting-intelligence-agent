@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Meeting Intelligence Agent</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(
+                135deg,
+                #111827,
+                #1e3a8a
+            );
+
+            color: white;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        header p {
+            margin-top: 12px;
+            color: #dbeafe;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .record-box,
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .record-box {
+            text-align: center;
+        }
+
+        .record-status {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .timer {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        button {
+            border: none;
+            padding: 15px 28px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        #startBtn {
+            background: #16a34a;
+            color: white;
+        }
+
+        #stopBtn {
+            background: #dc2626;
+            color: white;
+            display: none;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #loading {
+            display: none;
+            margin: 25px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        #error {
+            color: #dc2626;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .transcript {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .action {
+            background: #f8fafc;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .person {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .deadline {
+            color: #4b5563;
+            margin-top: 5px;
+        }
+
+        .previous-meeting {
+            background: #f8fafc;
+            border-left: 5px solid #1e3a8a;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        .previous-meeting h3 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        details {
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .empty {
+            color: #6b7280;
+            padding: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>🧠 Meeting Intelligence Agent</h1>
+
+    <p>
+        Transform conversations into actionable intelligence
+    </p>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <!-- ============================= -->
+    <!-- RECORDING -->
+    <!-- ============================= -->
+
+    <div class="record-box">
+
+        <h2>🎙️ Record Your Meeting</h2>
+
+        <p>
+            Click Start, conduct your meeting,
+            then click Stop.
+        </p>
+
+
+        <div
+            id="recordStatus"
+            class="record-status"
+        >
+            ⚪ Ready to record
+        </div>
+
+
+        <div
+            id="timer"
+            class="timer"
+        >
+            00:00
+        </div>
+
+
+        <button
+            id="startBtn"
+            onclick="startRecording()"
+        >
+            🔴 Start Recording
+        </button>
+
+
+        <button
+            id="stopBtn"
+            onclick="stopRecording()"
+        >
+            ⏹️ Stop Recording
+        </button>
+
+
+        <div id="loading">
+
+            🧠 AI is analyzing your meeting...
+
+            <br>
+
+            Please wait.
+
+        </div>
+
+
+        <div id="error"></div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- PREVIOUS MEETINGS -->
+    <!-- ============================= -->
+
+    <div class="card">
+
+        <h2>📚 Previous Meetings</h2>
+
+        <p>
+            Review information from your earlier meetings.
+        </p>
+
+
+        <div id="previousMeetings">
+
+            ⏳ Loading previous meetings...
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- CURRENT RESULTS -->
+    <!-- ============================= -->
+
+    <div
+        id="results"
+        class="results"
+    >
+
+
+        <div class="card">
+
+            <h2>📝 Transcript</h2>
+
+            <div
+                id="transcript"
+                class="transcript"
+            ></div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>📌 Summary</h2>
+
+            <p id="summary"></p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>💬 Discussion Points</h2>
+
+            <ul id="discussion"></ul>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>✅ Decisions</h2>
+
+            <ul id="decisions"></ul>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>🤝 Promises</h2>
+
+            <ul id="promises"></ul>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>🔔 Follow-ups</h2>
+
+            <ul id="followups"></ul>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h2>📋 Action Items</h2>
+
+            <div id="actions"></div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<footer>
+
+    🧠 Meeting Intelligence Agent
+
+</footer>
+
+
+
+<script>
+
+
+// ==================================================
+// VARIABLES
+// ==================================================
+
+let mediaRecorder = null;
+
+let audioChunks = [];
+
+let timerInterval = null;
+
+let seconds = 0;
+
+
+
+// ==================================================
+// START RECORDING
+// ==================================================
+
+async function startRecording() {
+
+    console.log("Start Recording clicked");
+
+
+    try {
+
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            throw new Error(
+                "Your browser does not support microphone recording."
+            );
+
+        }
+
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
+
+
+        console.log(
+            "Microphone permission granted"
+        );
+
+
+        audioChunks = [];
+
+
+        mediaRecorder =
+            new MediaRecorder(stream);
+
+
+        mediaRecorder.ondataavailable =
+            function(event) {
+
+                if (event.data.size > 0) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+
+                }
+
+            };
+
+
+        mediaRecorder.onstop =
+            function() {
+
+
+                console.log(
+                    "Recording stopped"
+                );
+
+
+                stream
+                    .getTracks()
+                    .forEach(
+                        track => track.stop()
+                    );
+
+
+                const audioBlob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type: "audio/webm"
+                        }
+                    );
+
+
+                sendAudioToServer(
+                    audioBlob
+                );
+
+            };
+
+
+        mediaRecorder.start();
+
+
+        seconds = 0;
+
+        updateTimer();
+
+
+        timerInterval =
+            setInterval(
+                updateTimer,
+                1000
+            );
+
+
+        document.getElementById(
+            "startBtn"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "stopBtn"
+        ).style.display = "inline-block";
+
+
+        document.getElementById(
+            "recordStatus"
+        ).innerText =
+            "🔴 Recording in progress...";
+
+
+        document.getElementById(
+            "error"
+        ).innerText = "";
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(error);
+
+
+        document.getElementById(
+            "error"
+        ).innerText =
+            "❌ Microphone error: "
+            + error.message;
+
+    }
+
+}
+
+
+
+// ==================================================
+// STOP RECORDING
+// ==================================================
+
+function stopRecording() {
+
+
+    console.log(
+        "Stop Recording clicked"
+    );
+
+
+    if (
+        mediaRecorder &&
+        mediaRecorder.state !== "inactive"
+    ) {
+
+        mediaRecorder.stop();
+
+    }
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    document.getElementById(
+        "startBtn"
+    ).style.display = "inline-block";
+
+
+    document.getElementById(
+        "stopBtn"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "recordStatus"
+    ).innerText =
+        "⏳ Recording stopped. Processing...";
+
+}
+
+
+
+// ==================================================
+// TIMER
+// ==================================================
+
+function updateTimer() {
+
+
+    seconds++;
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const remainingSeconds =
+        seconds % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+
+        String(minutes).padStart(
+            2,
+            "0"
+        )
+
+        + ":"
+
+        +
+
+        String(
+            remainingSeconds
+        ).padStart(
+            2,
+            "0"
+        );
+
+}
+
+
+
+// ==================================================
+// SEND AUDIO TO FASTAPI
+// ==================================================
+
+async function sendAudioToServer(
+    audioBlob
+) {
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    loading.style.display =
+        "block";
+
+
+    results.style.display =
+        "none";
+
+
+    try {
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "file",
+            audioBlob,
+            "meeting.webm"
+        );
+
+
+        const response =
+            await fetch(
+                "/process-meeting",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server error: "
+                + response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Server response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Analysis failed"
+            );
+
+        }
+
+
+        displayResults(
+            data.analysis
+        );
+
+
+        // Refresh previous meetings
+        loadPreviousMeetings();
+
+
+    }
+
+    catch (err) {
+
+
+        console.error(err);
+
+
+        error.innerText =
+            "❌ " + err.message;
+
+    }
+
+    finally {
+
+        loading.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+// ==================================================
+// DISPLAY CURRENT RESULTS
+// ==================================================
+
+function displayResults(
+    analysis
+) {
+
+
+    document.getElementById(
+        "recordStatus"
+    ).innerText =
+        "✅ Meeting analyzed successfully";
+
+
+    document.getElementById(
+        "transcript"
+    ).innerText =
+        analysis.transcript ||
+        "No transcript available.";
+
+
+    document.getElementById(
+        "summary"
+    ).innerText =
+        analysis.summary ||
+        "No summary available.";
+
+
+    fillList(
+        "discussion",
+        analysis.discussion_points
+    );
+
+
+    fillList(
+        "decisions",
+        analysis.decisions
+    );
+
+
+    fillList(
+        "promises",
+        analysis.promises
+    );
+
+
+    fillList(
+        "followups",
+        analysis.follow_ups
+    );
+
+
+    const actions =
+        document.getElementById(
+            "actions"
+        );
+
+
+    actions.innerHTML = "";
+
+
+    (
+        analysis.action_items ||
+        []
+    ).forEach(
+        item => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "action";
+
+
+            if (
+                typeof item === "object"
+            ) {
+
+
+                div.innerHTML = `
+
+                    <div class="person">
+                        👤 ${item.person || "Unknown"}
+                    </div>
+
+                    <div>
+                        📌 ${item.task || "No task"}
+                    </div>
+
+                    <div class="deadline">
+                        ⏰ Deadline:
+                        ${item.deadline || "Not specified"}
+                    </div>
+
+                `;
+
+            }
+
+            else {
+
+
+                div.innerText =
+                    "📌 " + item;
+
+            }
+
+
+            actions.appendChild(
+                div
+            );
+
+
+        }
+    );
+
+
+    document.getElementById(
+        "results"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "results"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+// ==================================================
+// LIST HELPER
+// ==================================================
+
+function fillList(
+    elementId,
+    items
+) {
+
+
+    const list =
+        document.getElementById(
+            elementId
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        !items ||
+        !items.length
+    ) {
+
+
+        const li =
+            document.createElement(
+                "li"
+            );
+
+
+        li.innerText =
+            "No information available.";
+
+
+        list.appendChild(
+            li
+        );
+
+
+        return;
+
+    }
+
+
+    items.forEach(
+        item => {
+
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            li.innerText =
+                item;
+
+
+            list.appendChild(
+                li
+            );
+
+
+        }
+    );
+
+}
+
+
+
+// ==================================================
+// LOAD PREVIOUS MEETINGS
+// ==================================================
+
+async function loadPreviousMeetings() {
+
+
+    const container =
+        document.getElementById(
+            "previousMeetings"
+        );
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/meetings"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to connect to meetings API"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Previous meetings:",
+            data
+        );
+
+
+        if (
+            !data.success
+        ) {
+
+            throw new Error(
+                "Could not load meetings"
+            );
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !data.meetings ||
+            data.meetings.length === 0
+        ) {
+
+
+            container.innerHTML =
+                `
+                <div class="empty">
+                    📭 No previous meetings found.
+                </div>
+                `;
+
+
+            return;
+
+        }
+
+
+        // Newest meeting first
+
+        const meetings =
+            data.meetings
+                .slice()
+                .reverse();
+
+
+        meetings.forEach(
+            (meeting, index) => {
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "previous-meeting";
+
+
+                let html = `
+
+                    <h3>
+                        📅 Previous Meeting
+                    </h3>
+
+                `;
+
+
+                // Date
+
+                if (
+                    meeting.created_at
+                ) {
+
+                    html += `
+
+                        <p>
+                            🕒
+                            <strong>Date:</strong>
+                            ${meeting.created_at}
+                        </p>
+
+                    `;
+
+                }
+
+
+                // Contact
+
+                if (
+                    meeting.contact_name ||
+                    meeting.contact
+                ) {
+
+                    html += `
+
+                        <p>
+                            👤
+                            <strong>Contact:</strong>
+                            ${
+                                meeting.contact_name ||
+                                meeting.contact
+                            }
+                        </p>
+
+                    `;
+
+                }
+
+
+                // Summary
+
+                if (
+                    meeting.summary
+                ) {
+
+                    html += `
+
+                        <p>
+                            📌
+                            <strong>Summary:</strong>
+                            ${meeting.summary}
+                        </p>
+
+                    `;
+
+                }
+
+
+                // Transcript
+
+                if (
+                    meeting.transcript
+                ) {
+
+                    html += `
+
+                        <details>
+
+                            <summary>
+                                📝 View Transcript
+                            </summary>
+
+                            <p style="
+                                white-space: pre-wrap;
+                                line-height: 1.6;
+                            ">
+                                ${meeting.transcript}
+                            </p>
+
+                        </details>
+
+                    `;
+
+                }
+
+
+                // Discussion
+
+                if (
+                    meeting.discussion_points &&
+                    meeting.discussion_points.length
+                ) {
+
+                    html += `
+
+                        <p>
+                            💬
+                            <strong>
+                                Discussion Points
+                            </strong>
+                        </p>
+
+                        <ul>
+                            ${
+                                meeting.discussion_points
+                                    .map(
+                                        item =>
+                                            `<li>${item}</li>`
+                                    )
+                                    .join("")
+                            }
+                        </ul>
+
+                    `;
+
+                }
+
+
+                // Decisions
+
+                if (
+                    meeting.decisions &&
+                    meeting.decisions.length
+                ) {
+
+                    html += `
+
+                        <p>
+                            ✅
+                            <strong>
+                                Decisions
+                            </strong>
+                        </p>
+
+                        <ul>
+                            ${
+                                meeting.decisions
+                                    .map(
+                                        item =>
+                                            `<li>${item}</li>`
+                                    )
+                                    .join("")
+                            }
+                        </ul>
+
+                    `;
+
+                }
+
+
+                // Promises
+
+                if (
+                    meeting.promises &&
+                    meeting.promises.length
+                ) {
+
+                    html += `
+
+                        <p>
+                            🤝
+                            <strong>
+                                Promises
+                            </strong>
+                        </p>
+
+                        <ul>
+                            ${
+                                meeting.promises
+                                    .map(
+                                        item =>
+                                            `<li>${item}</li>`
+                                    )
+                                    .join("")
+                            }
+                        </ul>
+
+                    `;
+
+                }
+
+
+                // Follow-ups
+
+                if (
+                    meeting.follow_ups &&
+                    meeting.follow_ups.length
+                ) {
+
+                    html += `
+
+                        <p>
+                            🔔
+                            <strong>
+                                Follow-ups
+                            </strong>
+                        </p>
+
+                        <ul>
+                            ${
+                                meeting.follow_ups
+                                    .map(
+                                        item =>
+                                            `<li>${item}</li>`
+                                    )
+                                    .join("")
+                            }
+                        </ul>
+
+                    `;
+
+                }
+
+
+                // Action items
+
+                if (
+                    meeting.action_items &&
+                    meeting.action_items.length
+                ) {
+
+                    html += `
+
+                        <p>
+                            📋
+                            <strong>
+                                Action Items
+                            </strong>
+                        </p>
+
+                    `;
+
+
+                    meeting.action_items.forEach(
+                        item => {
+
+
+                            if (
+                                typeof item ===
+                                "object"
+                            ) {
+
+
+                                html += `
+
+                                    <div class="action">
+
+                                        <div class="person">
+                                            👤
+                                            ${
+                                                item.person ||
+                                                "Unknown"
+                                            }
+                                        </div>
+
+                                        <div>
+                                            📌
+                                            ${
+                                                item.task ||
+                                                "No task"
+                                            }
+                                        </div>
+
+                                        <div class="deadline">
+                                            ⏰ Deadline:
+                                            ${
+                                                item.deadline ||
+                                                "Not specified"
+                                            }
+                                        </div>
+
+                                    </div>
+
+                                `;
+
+                            }
+
+                            else {
+
+
+                                html += `
+
+                                    <div class="action">
+                                        📌 ${item}
+                                    </div>
+
+                                `;
+
+                            }
+
+                        }
+                    );
+
+                }
+
+
+                card.innerHTML =
+                    html;
+
+
+                container.appendChild(
+                    card
+                );
+
+
+            }
+        );
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Previous meetings error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                ❌ Could not load previous meetings.
+
+                <br><br>
+
+                Make sure the FastAPI server
+                is running.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+// ==================================================
+// LOAD PREVIOUS MEETINGS WHEN PAGE OPENS
+// ==================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadPreviousMeetings();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
